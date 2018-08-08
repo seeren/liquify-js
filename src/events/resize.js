@@ -8,6 +8,7 @@ export class Resize extends Event {
      */
     constructor(world) {
         super();
+        this.id;
         this.handler(world.scene, world.camera, world.renderer);
     }
 
@@ -18,15 +19,11 @@ export class Resize extends Event {
      */
     handler(scene, camera, renderer) {
         this.handler = () => {
-            let width = renderer.domElement.parentNode.offsetWidth;
-            let height = renderer.domElement.parentNode.offsetHeight;
-            if (!width || !height) {
-                return this.unregister();
-            }
-            camera.aspect = width / height;
-            renderer.setSize(width, height);
-            camera.updateProjectionMatrix();
-            this.listener.forEach(listener => listener());
+            window.clearTimeout(this.id);
+            this.id = window.setTimeout(
+                () => this.listener.forEach(listener => listener()),
+                100
+            );
         };
     }
 
