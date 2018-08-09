@@ -10,7 +10,7 @@ export class Loop extends Event {
         super();
         this.id;
         this.fps = fps || 30;
-        this.play();
+        this.trigger();
     }
 
     /**
@@ -23,12 +23,12 @@ export class Loop extends Event {
     /**
      * @returns {void}
      */
-    play() {
+    trigger() {
         let interval;
         let now;
         let from = window.Date.now();
-        this.play = () => {
-            this.id = window.requestAnimationFrame(this.play);
+        this.trigger = () => {
+            this.id = window.requestAnimationFrame(this.trigger);
             now = window.Date.now();
             interval = now - from;
             if (interval > this.ms) {
@@ -41,8 +41,15 @@ export class Loop extends Event {
     /**
      * @returns {void}
      */
-    stop() {
-        return window.cancelAnimationFrame(this.id);
+    register() {
+        return this.trigger();
+    }
+
+    /**
+     * @returns {void}
+     */
+    unregister() {
+        return this.id = window.cancelAnimationFrame(this.id);
     }
 
 }
