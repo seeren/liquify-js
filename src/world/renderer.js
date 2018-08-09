@@ -1,4 +1,6 @@
-export class Renderer extends THREE.WebGLRenderer {
+import { WebGLRenderer as THREEWebGLRenderer} from 'three';
+
+export class Renderer extends THREEWebGLRenderer {
 
     /**
      * @constructor

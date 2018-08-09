@@ -1,45 +1,31 @@
-export class Scene extends THREE.Scene {
+import { Scene as THREEScene} from 'three';
+
+export class Scene extends THREEScene {
 
     /**
      * @constructor
-     * @param {Camera} camera 
      */
-    constructor(camera) {
+    constructor(subject) {
         super();
-        this.addPlane(camera);
+        this.setSubject(subject);
     }
 
     /**
-     * @param {Camera} camera 
+     * @returns {Mesh}
      */
-    addPlane(camera) {
-        this.addPlane = (color) => {
-            let height = 2 * Math.tan((camera.fov * Math.PI / 180) / 2);
-            this.plane = new THREE.Mesh(
-                new THREE.PlaneGeometry(
-                    height * camera.aspect,
-                    height,
-                    16,
-                    8
-                ),
-                new THREE.MeshBasicMaterial({ color: color || 0xffffff })
-            );
-            this.plane.rotation.x = -Math.PI / 2;
-            this.add(this.plane);
-        };
+    getSubject() {
+        return this.subject;
     }
 
     /**
-     * @param {string} src 
+     * @param {Mesh} mesh
      */
-    setPlaneTexture(src) {
-        this.plane.material.map = new THREE.TextureLoader().load(src);
-        this.plane.material.map.wrapS = THREE.ClampToEdgeWrapping;
-        this.plane.material.map.wrapT = THREE.ClampToEdgeWrapping;
-        this.plane.material.map.minFilter = THREE.LinearFilter;
-        this.plane.material.map.magFilter = THREE.LinearFilter;
-        this.plane.material.map.format = THREE.RGBFormat;
-        this.plane.material.needsUpdate = true;
+    setSubject(subject) {
+        if (this.subject) {
+            this.remove(this.subject);
+        }
+        this.add(subject);
+        this.subject = subject;
     }
 
 }

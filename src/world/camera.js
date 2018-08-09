@@ -1,4 +1,6 @@
-export class Camera extends THREE.PerspectiveCamera {
+import { PerspectiveCamera as THREEPerspectiveCamera} from 'three';
+
+export class Camera extends THREEPerspectiveCamera {
 
     /**
      * @constructor
