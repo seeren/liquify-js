@@ -54958,7 +54958,7 @@ exports.liquify = undefined;
 var _liquify = require("./core/liquify");
 
 var liquify = exports.liquify = global.liquify = new _liquify.Liquify(); /**
-                                                                          * liquify.js
+                                                                          * liquify-js
                                                                           *     __
                                                                           *    / /__ __ __ __ __ __
                                                                           *   / // // // // // // /
