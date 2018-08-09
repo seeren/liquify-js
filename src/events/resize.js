@@ -4,23 +4,20 @@ export class Resize extends Event {
 
     /**
      * @constructor
-     * @param {World} world 
      */
-    constructor(world) {
+    constructor() {
         super();
-        this.id;
-        this.handler(world.scene, world.camera, world.renderer);
+        this.trigger();
     }
 
     /**
-     * @param {Scene} scene 
-     * @param {Camera} camera 
-     * @param {Renderer} renderer 
+     * @returns {void}
      */
-    handler(scene, camera, renderer) {
-        this.handler = () => {
-            window.clearTimeout(this.id);
-            this.id = window.setTimeout(
+    trigger() {
+        let id;
+        this.trigger = () => {
+            window.clearTimeout(id);
+            id = window.setTimeout(
                 () => this.listener.forEach(listener => listener()),
                 100
             );
@@ -31,14 +28,14 @@ export class Resize extends Event {
      * @returns {void}
      */
     register() {
-        return window.addEventListener("resize", this.handler, false);
+        return window.addEventListener("resize", this.trigger, false);
     }
 
     /**
      * @returns {void}
      */
     unregister() {
-        return window.removeEventListener("resize", this.handler);
+        return window.removeEventListener("resize", this.trigger);
     }
 
 }
