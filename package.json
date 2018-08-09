@@ -7,7 +7,7 @@
     "web-gl",
     "filter"
   ],
-  "homepage": "https://seeren.github.io/liquify.js/",
+  "homepage": "https://seeren.github.io/liquify-js/",
   "author": "Cyril Ichti",
   "scripts": {
     "start": "npm run serve",
@@ -21,7 +21,7 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/seeren/liquify.js"
+    "url": "https://github.com/seeren/liquify-js"
   },
   "license": "MIT",
   "dependencies": {
