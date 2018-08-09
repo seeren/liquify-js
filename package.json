@@ -37,7 +37,6 @@
     "chai": "latest",
     "cross-env": "latest",
     "coveralls": "latest",
-    "dat.gui": "latest",
     "jsdom": "latest",
     "mocha": "latest",
     "mocha-lcov-reporter": "latest",
