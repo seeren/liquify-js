@@ -1,0 +1,51 @@
+{
+  "name": "liquify-js",
+  "description": "Liquify filter for HTML elements",
+  "version": "1.0.1",
+  "keywords": [
+    "liquify",
+    "web-gl",
+    "filter"
+  ],
+  "homepage": "https://seeren.github.io/liquify.js/",
+  "author": "Cyril Ichti",
+  "scripts": {
+    "start": "npm run serve",
+    "serve": "npm run sync | npm run sync-babel",
+    "sync": "./node_modules/.bin/browser-sync start --server --files ./dist/index.*",
+    "sync-babel": "./node_modules/.bin/watchify ./src/index.js -t [babelify] -o ./dist/index.js",
+    "test": "./node_modules/.bin/mocha --require babel-register --recursive test/unit",
+    "test-coverage": "./node_modules/.bin/cross-env NODE_ENV=test ./node_modules/.bin/nyc ./node_modules/.bin/mocha --recursive test/unit",
+    "test-coveralls": "npm run coverage -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+  },
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seeren/liquify.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "html2canvas": "^1.0.0-alpha.12",
+    "three": "latest"
+  },
+  "devDependencies": {
+    "babelify": "latest",
+    "babel-plugin-istanbul": "latest",
+    "babel-preset-env": "latest",
+    "babel-register": "latest",
+    "browser-sync": "latest",
+    "chai": "latest",
+    "cross-env": "latest",
+    "coveralls": "latest",
+    "dat.gui": "latest",
+    "jsdom": "latest",
+    "mocha": "latest",
+    "mocha-lcov-reporter": "latest",
+    "nyc": "latest",
+    "sinon": "latest",
+    "watchify": "latest"
+  },
+  "engines": {
+    "node": ">=8"
+  }
+}
