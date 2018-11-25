@@ -4,42 +4,27 @@ export class Rasterize {
 
     /**
      * @param {HTMLElement} node 
+     * @param {Camera} camera 
      * @param {Scene} scene 
      * @param {Renderer} renderer 
      */
-    constructor(node, scene, renderer) {
-        this.render(node, scene, renderer);
-    }
-
-    /**
-     * @param {HTMLElement} node 
-     * @param {Scene} scene 
-     * @param {Renderer} renderer 
-     */
-    render(node, scene, renderer) {
-        this.render = () => {
-            console.log("?");
-            
-        //     node.style.display = '';
-        //     world.renderer.domElement.parentNode.style.display = 'none';
-        //     let width = node.offsetWidth;
-        //     let height = node.offsetHeight;
-        //     world.renderer.domElement.parentNode.style.width = `${width}px`;
-        //     world.renderer.domElement.parentNode.style.height = `${height}px`;
-        //     world.camera.aspect = width / height;
-        //     world.renderer.setSize(width, height);
-        //     world.camera.updateProjectionMatrix();
-        //     node.style.display = 'none';
-        //     world.renderer.domElement.parentNode.style.display = 'block';
-        //     world.scene.setSubject(world.scene.getSubject().getCopy());
-        //     node.style.display = '';
-        //     world.renderer.domElement.parentNode.style.display = 'none';
-        //     html2canvas(node, { backgroundColor: null }).then((canvas) => {
-        //         node.style.display = 'none';
-        //         world.renderer.domElement.parentNode.style.display = 'block';
-        //         world.scene.getSubject().setTexture(canvas.toDataURL());
-        //     });
-        }
+    render(node, camera, scene, renderer) {
+        renderer.domElement.parentNode.style.display = `none`;
+        node.style.display = ``;
+        html2canvas(node, {
+            logging: false,
+            backgroundColor: null
+        }).then((canvas) => {
+            const width = node.offsetWidth;
+            const height = node.offsetHeight;
+            camera.resize(width, height);
+            renderer.resize(width, height);
+            scene.resize(width, height, camera, canvas.toDataURL());
+            renderer.domElement.parentNode.style.width = `${node.offsetWidth}px`;
+            renderer.domElement.parentNode.style.height = `${node.offsetHeight}px`;
+            node.style.display = `none`;
+            renderer.domElement.parentNode.style.display = `block`;
+        });
     }
 
 }
