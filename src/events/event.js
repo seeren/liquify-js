@@ -4,25 +4,28 @@ export class Event {
      * @constructor
      */
     constructor() {
-        this.listener = [];
+        this.callables = [];
     }
 
     /**
-     * @param {Function} listener 
+     * @param {Function} callable 
+     * @returns {this}
      */
-    bind(listener) {
-        return this.listener.push(listener);
+    attach(callable) {
+        this.callables.push(callable);
+        return this;
     }
 
     /**
-     * @param {Function} listener 
+     * @param {Function} callable 
+     * @returns {this}
      */
-    unbind(listener) {
-        let index = this.listener.indexOf(listener);
-        if (index > -1) {
-            this.listener.splice(index, 1);
-            return true;
+    detach(callable) {
+        const key = this.callables.indexOf(callable);
+        if (-1 < key) {
+            this.callables.splice(key, 1);
         }
+        return this;
     }
 
 }
