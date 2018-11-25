@@ -10,46 +10,49 @@ export class Loop extends Event {
         super();
         this.id;
         this.fps = fps || 30;
-        this.trigger();
+        this.emit();
     }
 
     /**
      * @param {number} fps 
+     * @returns {number}
      */
     set fps(fps) {
         return this.ms = 1000 / fps;
     }
 
     /**
+     * @returns {this}
+     */
+    register() {
+        this.id = window.requestAnimationFrame(this.emit);
+        return this;
+    }
+
+    /**
+     * @returns {this}
+     */
+    unregister() {
+        this.id = window.cancelAnimationFrame(this.id);
+        return this;
+    }
+
+    /**
      * @returns {void}
      */
-    trigger() {
+    emit() {
         let interval;
         let now;
         let from = window.Date.now();
-        this.trigger = () => {
-            this.id = window.requestAnimationFrame(this.trigger);
+        this.emit = () => {
+            this.id = window.requestAnimationFrame(this.emit);
             now = window.Date.now();
             interval = now - from;
             if (interval > this.ms) {
-                this.listener.forEach(listener => listener());
+                this.callables.forEach(callable => callable());
                 from = now - (interval % this.ms);
             }
         };
-    }
-
-    /**
-     * @returns {void}
-     */
-    register() {
-        return this.trigger();
-    }
-
-    /**
-     * @returns {void}
-     */
-    unregister() {
-        return this.id = window.cancelAnimationFrame(this.id);
     }
 
 }

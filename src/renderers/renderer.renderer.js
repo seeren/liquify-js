@@ -1,12 +1,12 @@
-import { WebGLRenderer as THREEWebGLRenderer} from 'three';
+import { WebGLRenderer } from 'three';
 
-export class Renderer extends THREEWebGLRenderer {
+export class Renderer extends WebGLRenderer {
 
     /**
      * @constructor
-     * @param {HTMLElement} container 
+     * @param {HTMLElement} element 
      */
-    constructor(container) {
+    constructor(element) {
         super({
             antialias: true,
             alpha: true,
@@ -14,7 +14,7 @@ export class Renderer extends THREEWebGLRenderer {
         });
         this.setClearColor(0x000000, 0);
         this.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
-        this.setSize(container.offsetWidth, container.offsetHeight);
+        this.setSize(element.offsetWidth, element.offsetHeight);
     }
 
 }
