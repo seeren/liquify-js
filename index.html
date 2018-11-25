@@ -8,7 +8,7 @@
     <meta name="keywords" content="liquify, web-gl, filter" />
     <meta name="theme-color" content="#ffffff">
     <title>
-        liquify-js
+        Liquify-js
     </title>
     <style>
         html,
@@ -20,23 +20,21 @@
             height: 100%;
             position: relative;
             background: #212121;
+            overflow-x: hidden;
         }
-
         html .dg.ac {
             z-index: 9;
         }
-
         .screen {
             position: absolute;
             width: 100%;
             height: 100%;
-            background-image: url(./ressources/images/sample.jpg);
+            background-image: url(ressources/images/sample.jpg);
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
             overflow: hidden;
         }
-
         .title {
             color: #fafafa;
             position: absolute;
@@ -54,24 +52,22 @@
 </head>
 
 <body>
-
     <div liquify class="screen"></div>
     <h1 liquify class="title">
         Liquify HTML Content
     </h1>
-
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.2/dat.gui.js"></script>
-    <script type="text/javascript" src="./dist/index.js"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.2/dat.gui.js"></script> -->
+    <script type="text/javascript" src="./dist/liquify.js"></script>
     <script>
-        let gui = new dat.GUI();
-        let screen = window.document.querySelector(".screen");
-        let title = window.document.querySelector(".title");
-        title.Liquify.filter.frequency = 0.02;
-        title.Liquify.filter.radian = 0.7;
-        title.Liquify.filter.amplitude = 0.025;
-        gui.add(screen.Liquify.filter, 'frequency', 0, 1).name("Frequency");
-        gui.add(screen.Liquify.filter, 'radian', 0, 2).name("Radian");
-        gui.add(screen.Liquify.filter, 'amplitude', 0, 0.1).name("Amplitude");
+        // let gui = new dat.GUI();
+        // let screen = window.document.querySelector(".screen");
+        // let title = window.document.querySelector(".title");
+        // title.Liquify.filter.frequency = 0.02;
+        // title.Liquify.filter.radian = 0.7;
+        // title.Liquify.filter.amplitude = 0.025;
+        // gui.add(screen.Liquify.filter, 'frequency', 0, 1).name("Frequency");
+        // gui.add(screen.Liquify.filter, 'radian', 0, 2).name("Radian");
+        // gui.add(screen.Liquify.filter, 'amplitude', 0, 0.1).name("Amplitude");
     </script>
 </body>
 
