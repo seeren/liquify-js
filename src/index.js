@@ -4,6 +4,7 @@ import { Perspective } from './cameras/perspective.camera';
 import { Scene } from './scenes/scene.scene';
 import { Renderer } from './renderers/renderer.renderer';
 import { Rasterize } from "./filters/rasterize.filter";
+import { WarpFilter } from "./filters/warp.filter";
 
 /**
  *     __
@@ -48,7 +49,6 @@ const factory = (loop, resize, filter) => {
             }
             return false;
         }
-
     }
 };
 
@@ -85,25 +85,24 @@ export let liquify = global.liquify = new class {
      * @param {HTMLElement} node 
      */
     render(node, container) {
-        // TODO add wrap filter
         const loop = new Loop;
         const resize = new Resize;
         const rasterize = new Rasterize;
+        const warp = new WarpFilter;
         const width = node.offsetWidth;
         const height = node.offsetHeight;
         const camera = new Perspective(width, height);
         const renderer = new Renderer(width, height);
         const scene = new Scene(camera);
-        // TODO add filter to Liquify
         container.appendChild(renderer.domElement);
         node.parentNode.insertBefore(container, node);
-        node.Liquify = factory(loop, resize);
-        // TODO limit event scoped members
-        resize.attach(() => rasterize.render(node, camera, scene, renderer));
-        loop.attach(() => renderer.render(scene, camera));
+        node.Liquify = factory(loop, resize, warp);
+        resize.attach(() => rasterize.render(node, camera, scene, renderer, warp));
         resize.register();
-        loop.register();
         resize.emit();
+        loop.attach(() => warp.render());
+        loop.attach(() => renderer.render(scene, camera));
+        loop.register();
     }
 
 }
