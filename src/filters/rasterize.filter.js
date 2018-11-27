@@ -7,8 +7,9 @@ export class Rasterize {
      * @param {Camera} camera 
      * @param {Scene} scene 
      * @param {Renderer} renderer 
+     * @param {WarpFilter} filter 
      */
-    render(node, camera, scene, renderer) {
+    render(node, camera, scene, renderer, filter) {
         renderer.domElement.parentNode.style.display = `none`;
         node.style.display = ``;
         html2canvas(node, {
@@ -20,6 +21,7 @@ export class Rasterize {
             camera.resize(width, height);
             renderer.resize(width, height);
             scene.resize(width, height, camera, canvas.toDataURL());
+            filter.setMesh(scene.plane);
             renderer.domElement.parentNode.style.width = `${node.offsetWidth}px`;
             renderer.domElement.parentNode.style.height = `${node.offsetHeight}px`;
             node.style.display = `none`;
