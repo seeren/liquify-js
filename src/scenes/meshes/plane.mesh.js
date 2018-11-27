@@ -15,9 +15,9 @@ export class Plane extends Mesh {
      * @param {number} width 
      * @param {number} height 
      * @param {Camera} camera 
-     * @param {string} image 
+     * @param {string} src 
      */
-    constructor(width, height, camera, image) {
+    constructor(width, height, camera, src) {
         super(
             new PlaneGeometry(
                 (2 * window.Math.tan(
@@ -27,7 +27,7 @@ export class Plane extends Mesh {
                 window.Math.ceil(width / 55),
                 window.Math.ceil(height / 55 / 2)
             ),
-            new MeshBasicMaterial({ map: new TextureLoader().load(image) })
+            new MeshBasicMaterial({ map: new TextureLoader().load(src) })
         );
         this.rotation.x = -Math.PI / 2;
         this.material.map.wrapS = ClampToEdgeWrapping;

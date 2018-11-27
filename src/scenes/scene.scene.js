@@ -17,13 +17,13 @@ export class Scene extends THREEScene {
      * @param {number} width 
      * @param {number} height 
      * @param {Perspective} camera 
-     * @param {string} image 
+     * @param {string} src 
      */
-    resize(width, height, camera, image) {
+    resize(width, height, camera, src) {
         if (this.plane) {
             this.remove(this.plane);
         }
-        this.plane = new Plane(width, height, camera, image);
+        this.plane = new Plane(width, height, camera, src);
         this.add(this.plane);
     }
 
