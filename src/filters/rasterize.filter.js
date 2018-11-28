@@ -4,28 +4,21 @@ export class Rasterize {
 
     /**
      * @param {HTMLElement} node 
-     * @param {Camera} camera 
-     * @param {Scene} scene 
-     * @param {Renderer} renderer 
-     * @param {WarpFilter} filter 
+     * @param {HTMLElement} container 
+     * @param {Function} success 
      */
-    render(node, camera, scene, renderer, filter) {
-        renderer.domElement.parentNode.style.display = `none`;
+    render(node, container, success) {
+        container.style.display = `none`;
         node.style.display = ``;
         html2canvas(node, {
             logging: false,
             backgroundColor: null
         }).then((canvas) => {
-            const width = node.offsetWidth;
-            const height = node.offsetHeight;
-            camera.resize(width, height);
-            renderer.resize(width, height);
-            scene.resize(width, height, camera, canvas.toDataURL());
-            filter.setMesh(scene.plane);
-            renderer.domElement.parentNode.style.width = `${node.offsetWidth}px`;
-            renderer.domElement.parentNode.style.height = `${node.offsetHeight}px`;
+            success(canvas);
+            container.style.width = `${node.offsetWidth}px`;
+            container.style.height = `${node.offsetHeight}px`;
             node.style.display = `none`;
-            renderer.domElement.parentNode.style.display = `block`;
+            container.style.display = `block`;
         });
     }
 
