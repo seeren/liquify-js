@@ -17,41 +17,6 @@ import { WarpFilter } from "./filters/warp.filter";
  * @version 1.0.1
  */
 
-/**
- * @type {string}
- */
-const selector = `liquify`;
-
-/**
- * @param {Loop} loop 
- * @param {Resize} resize 
- * @param {Filter} filter 
- * @returns {Object}
- */
-const factory = (loop, resize, filter) => {
-    return {
-        get filter() {
-            return filter;
-        },
-        play() {
-            if (!this.loop.id) {
-                this.resize.register();
-                this.loop.register();
-                return true;
-            }
-            return false;
-        },
-        stop() {
-            if (this.loop.id) {
-                this.resize.unregister();
-                this.loop.unregister();
-                return true;
-            }
-            return false;
-        }
-    }
-};
-
 export let liquify = global.liquify = new class {
 
     /**
@@ -65,44 +30,42 @@ export let liquify = global.liquify = new class {
      * @returns {void} 
      */
     upgrade() {
-        window.document.querySelectorAll(`[${selector}]`).forEach((node) => {
-            let container = window.document.createElement(selector);
+        window.document.querySelectorAll(`[liquify]`).forEach((node) => {
+            let container = window.document.createElement(`liquify`);
             if (node.id) {
                 container.id = node.id;
             }
             if (node.className) {
                 container.className = node.className;
             }
-            if (node.style) {
-                container.style = node.style;
-            }
             container.style.display = `none`;
-            this.render(node, container);
+            this.render(node, container, new WarpFilter);
         });
     }
 
     /**
      * @param {HTMLElement} node 
+     * @param {HTMLElement} container 
+     * @param {Object} filter 
      */
-    render(node, container) {
-        const loop = new Loop;
-        const resize = new Resize;
+    render(node, container, filter) {
         const rasterize = new Rasterize;
-        const warp = new WarpFilter;
-        const width = node.offsetWidth;
-        const height = node.offsetHeight;
-        const camera = new Perspective(width, height);
-        const renderer = new Renderer(width, height);
+        const camera = new Perspective(node);
+        const renderer = new Renderer(node);
         const scene = new Scene(camera);
         container.appendChild(renderer.domElement);
         node.parentNode.insertBefore(container, node);
-        node.Liquify = factory(loop, resize, warp);
-        resize.attach(() => rasterize.render(node, camera, scene, renderer, warp));
-        resize.register();
-        resize.emit();
-        loop.attach(() => warp.render());
-        loop.attach(() => renderer.render(scene, camera));
-        loop.register();
+        node.Liquify = filter;
+        (new Resize).attach(() => rasterize.render(node, container, (canvas) => {
+            camera.resize(node);
+            renderer.resize(node);
+            scene.resize(node, canvas.toDataURL());
+            filter.setMesh(scene.plane);
+        })).register().emit();
+        (new Loop).attach(() => {
+            filter.render();
+            renderer.render(scene, camera);
+        }).register();
     }
 
 }
