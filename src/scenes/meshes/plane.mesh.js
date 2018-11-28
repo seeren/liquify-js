@@ -12,18 +12,17 @@ export class Plane extends Mesh {
 
     /**
      * @constructor
-     * @param {number} width 
-     * @param {number} height 
      * @param {Camera} camera 
+     * @param {HTMLElement} element 
      * @param {string} src 
      */
-    constructor(width, height, camera, src) {
+    constructor(camera, element, src) {
         super(
             new PlaneGeometry(
                 (2 * window.Math.tan((camera.fov * window.Math.PI / 180) / 2)) * camera.aspect,
                 2 * window.Math.tan((camera.fov * window.Math.PI / 180) / 2),
-                window.Math.ceil(width / 55),
-                window.Math.ceil(height / 55 / 2)
+                window.Math.ceil(element.offsetWidth / 55),
+                window.Math.ceil(element.offsetHeight / 55 / 2)
             ),
             new MeshBasicMaterial({ map: new TextureLoader().load(src) })
         );
