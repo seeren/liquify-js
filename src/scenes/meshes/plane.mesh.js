@@ -20,9 +20,7 @@ export class Plane extends Mesh {
     constructor(width, height, camera, src) {
         super(
             new PlaneGeometry(
-                (2 * window.Math.tan(
-                    (camera.fov * window.Math.PI / 180) / 2
-                )) * camera.aspect,
+                (2 * window.Math.tan((camera.fov * window.Math.PI / 180) / 2)) * camera.aspect,
                 2 * window.Math.tan((camera.fov * window.Math.PI / 180) / 2),
                 window.Math.ceil(width / 55),
                 window.Math.ceil(height / 55 / 2)
