@@ -11,20 +11,19 @@ export class Scene extends THREEScene {
         super();
         camera.position.y = 1;
         camera.lookAt(this.position);
-    }
 
-    /**
-     * @param {number} width 
-     * @param {number} height 
-     * @param {Perspective} camera 
-     * @param {string} src 
-     */
-    resize(width, height, camera, src) {
-        if (this.plane) {
-            this.remove(this.plane);
+        /**
+         * @param {HTMLElement} element 
+         * @param {string} src 
+         */
+        this.resize = (element, src) => {
+            if (this.plane) {
+                this.remove(this.plane);
+            }
+            this.plane = new Plane(camera, element, src);
+            this.add(this.plane);
         }
-        this.plane = new Plane(width, height, camera, src);
-        this.add(this.plane);
+
     }
 
 }
