@@ -4,10 +4,9 @@ export class Renderer extends WebGLRenderer {
 
     /**
      * @constructor
-     * @param {number} width 
-     * @param {number} height 
+     * @param {HTMLElement} element 
      */
-    constructor(width, height) {
+    constructor(element) {
         super({
             antialias: true,
             alpha: true,
@@ -15,15 +14,14 @@ export class Renderer extends WebGLRenderer {
         });
         this.setClearColor(0x000000, 0);
         this.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
-        this.resize(width, height)
+        this.resize(element)
     }
 
     /**
-     * @param {number} width 
-     * @param {number} height 
+     * @param {HTMLElement} element 
      */
-    resize(width, height) {
-        this.setSize(width, height);
+    resize(element) {
+        this.setSize(element.offsetWidth, element.offsetHeight);
     }
 
 }

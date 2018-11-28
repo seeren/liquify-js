@@ -4,19 +4,17 @@ export class Perspective extends PerspectiveCamera {
 
     /**
      * @constructor
-     * @param {number} width 
-     * @param {number} height 
+     * @param {HTMLElement} element 
      */
-    constructor(width, height) {
-        super(45, width / height, 0.1, 1000);
+    constructor(element) {
+        super(45, element.offsetWidth / element.offsetHeight, 0.1, 100);
     }
 
     /**
-     * @param {number} width 
-     * @param {number} height 
+     * @param {HTMLElement} element 
      */
-    resize(width, height) {
-        this.aspect = width / height;
+    resize(element) {
+        this.aspect = element.offsetWidth / element.offsetHeight;
         this.updateProjectionMatrix();
     }
 
