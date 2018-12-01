@@ -31,15 +31,21 @@ export let liquify = global.liquify = new class {
      */
     upgrade() {
         window.document.querySelectorAll(`[liquify]`).forEach((node) => {
-            let container = window.document.createElement(`liquify`);
-            if (node.id) {
-                container.id = node.id;
-            }
-            if (node.className) {
-                container.className = node.className;
-            }
+            const filter = new WarpFilter;
+            const container = window.document.createElement(`liquify`);
+            container.className = node.className || ``;
+            filter.frequency = window.parseFloat(
+                node.getAttribute(`liquify.frequency`)
+            ) || 0.5;
+            filter.degree = window.parseFloat(
+                node.getAttribute(`liquify.degree`)
+            ) || 55;
+            filter.amplitude = window.parseFloat(
+                node.getAttribute(`liquify.amplitude`)
+            ) || 0.5;
+            container.style = node.style;
             container.style.display = `none`;
-            this.render(node, container, new WarpFilter);
+            this.render(node, container, filter);
         });
     }
 
@@ -54,13 +60,13 @@ export let liquify = global.liquify = new class {
         const renderer = new Renderer(node);
         const scene = new Scene(camera);
         container.appendChild(renderer.domElement);
-        node.parentNode.insertBefore(container, node);
+        node.parentNode.insertBefore(container, node.nextSibling);
         node.Liquify = filter;
         (new Resize).attach(() => rasterize.render(node, container, (canvas) => {
             camera.resize(node);
             renderer.resize(node);
             scene.resize(node, canvas.toDataURL());
-            filter.setMesh(scene.plane);
+            filter.resize(scene.plane);
         })).register().emit();
         (new Loop).attach(() => {
             filter.render();
