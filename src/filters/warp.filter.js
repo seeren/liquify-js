@@ -39,7 +39,7 @@ export class WarpFilter {
                 y: mesh.geometry.vertices[i].y,
                 z: mesh.geometry.vertices[i].z
             })
-        };
+        }
     }
 
     /**
