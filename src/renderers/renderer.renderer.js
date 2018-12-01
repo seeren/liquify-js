@@ -1,7 +1,7 @@
 import {
     WebGLRenderer,
     Color
-} from 'three';
+} from "three";
 
 export class Renderer extends WebGLRenderer {
 

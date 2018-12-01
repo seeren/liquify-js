@@ -6,7 +6,7 @@ import {
     ClampToEdgeWrapping,
     LinearFilter,
     RGBFormat
-} from 'three';
+} from "three";
 
 export class Plane extends Mesh {
 

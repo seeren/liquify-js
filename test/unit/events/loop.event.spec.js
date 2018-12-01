@@ -1,39 +1,39 @@
-import { describe, beforeEach, it } from 'mocha';
-import { assert } from 'chai';
-import { window } from '../../window';
-import { Loop } from '../../../src/events/loop.event';
+import { describe, beforeEach, it } from "mocha";
+import { assert } from "chai";
+import { window } from "../../window";
+import { Loop } from "../../../src/events/loop.event";
 
-describe('Loop', () => {
+describe("Loop", () => {
 
     let event;
 
     beforeEach(() => event = new Loop);
 
-    describe('set fps(fps)', () => {
-        it('Calcul ms', () => {
+    describe("set fps(fps)", () => {
+        it("Calcul ms", () => {
             event.fps = 20;
             assert.equal(event.ms, 50);
         });
     });
 
-    describe('register', () => {
-        it('Provide id', () => {
+    describe("register", () => {
+        it("Provide id", () => {
             event.register();
             assert.isNumber(event.id);
             event.unregister();
         });
     });
 
-    describe('unregister', () => {
-        it('Clear id', () => {
+    describe("unregister", () => {
+        it("Clear id", () => {
             event.register();
             event.unregister();
             assert.isNotNumber(event.id);
         });
     });
 
-    describe('emit', () => {
-        it('Call attched functions', (done) => {
+    describe("emit", () => {
+        it("Call attched functions", (done) => {
             let state = false;
             event.attach(() => state = true);
             event.emit();

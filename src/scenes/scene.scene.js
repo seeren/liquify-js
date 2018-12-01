@@ -1,5 +1,5 @@
-import { Scene as THREEScene } from 'three';
-import { Plane } from './meshes/plane.mesh';
+import { Scene as THREEScene } from "three";
+import { Plane } from "./meshes/plane.mesh";
 
 export class Scene extends THREEScene {
 

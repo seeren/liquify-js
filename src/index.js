@@ -1,8 +1,8 @@
 import { Loop } from "./events/loop.event";
 import { Resize } from "./events/resize.event";
-import { Perspective } from './cameras/perspective.camera';
-import { Scene } from './scenes/scene.scene';
-import { Renderer } from './renderers/renderer.renderer';
+import { Perspective } from "./cameras/perspective.camera";
+import { Scene } from "./scenes/scene.scene";
+import { Renderer } from "./renderers/renderer.renderer";
 import { Rasterize } from "./filters/rasterize.filter";
 import { WarpFilter } from "./filters/warp.filter";
 
