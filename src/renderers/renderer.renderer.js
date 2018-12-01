@@ -17,7 +17,7 @@ export class Renderer extends WebGLRenderer {
         });
         this.setClearColor(new Color("#000000"), 0);
         this.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
-        this.resize(element)
+        this.resize(element);
     }
 
     /**

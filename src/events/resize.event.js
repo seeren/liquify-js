@@ -34,7 +34,7 @@ export class Resize extends Event {
         this.emit = () => {
             window.clearTimeout(timeout);
             timeout = window.setTimeout(
-                () => this.callables.forEach(callable => callable()),
+                () => this.callables.forEach((callable) => callable()),
                 100
             );
         };
