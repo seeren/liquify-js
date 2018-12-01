@@ -60,10 +60,18 @@
     <script>
         window.addEventListener("load", function () {
             var gui = new dat.GUI();
-            var screen = window.document.querySelector(".screen");
+            var screen = window.document.querySelector("[liquify]");
             gui.add(screen.Liquify, 'frequency', 0, 1).name("Frequency");
-            gui.add(screen.Liquify, 'radian', 0, 2).name("Radian");
-            gui.add(screen.Liquify, 'amplitude', 0, 0.1).name("Amplitude");
+            gui.add({ degree: 55 }, 'degree', 0, 360).name("Radian").onChange(
+                function (degree) {
+                    screen.Liquify.degree = degree;
+                }
+            );
+            gui.add({ amplitude: 0.5 }, 'amplitude', 0, 10).name("Amplitude").onChange(
+                function (amplitude) {
+                    screen.Liquify.amplitude = amplitude;
+                }
+            );
         });
     </script>
 </body>
