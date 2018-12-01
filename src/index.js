@@ -23,22 +23,22 @@ export let liquify = global.liquify = new class {
      * @constructor
      */
     constructor() {
-        window.addEventListener(`load`, () => this.upgrade());
+        window.addEventListener("load", () => this.upgrade());
     }
 
     /**
      * @returns {void} 
      */
     upgrade() {
-        window.document.querySelectorAll(`[liquify]`).forEach((node) => {
+        window.document.querySelectorAll("[liquify]").forEach((node) => {
             const filter = new WarpFilter;
-            const container = window.document.createElement(`liquify`);
-            filter.frequency = this.getAttribute(node, `liquify.frequency`, 0.5);
-            filter.degree = this.getAttribute(node, `liquify.degree`, 55);
-            filter.amplitude = this.getAttribute(node, `liquify.amplitude`, 0.5);
-            container.className = node.className || ``;
+            const container = window.document.createElement("liquify");
+            filter.frequency = this.getAttribute(node, "liquify.frequency", 0.5);
+            filter.degree = this.getAttribute(node, "liquify.degree", 55);
+            filter.amplitude = this.getAttribute(node, "liquify.amplitude", 0.5);
+            container.className = node.className || "";
             container.style = node.style;
-            container.style.display = `none`;
+            container.style.display = "none";
             this.render(node, container, filter);
         });
     }
@@ -77,4 +77,4 @@ export let liquify = global.liquify = new class {
         }).register();
     }
 
-}
+};

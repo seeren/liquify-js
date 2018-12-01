@@ -22,7 +22,7 @@ export class Scene extends THREEScene {
             }
             this.plane = new Plane(camera, element, src);
             this.add(this.plane);
-        }
+        };
 
     }
 

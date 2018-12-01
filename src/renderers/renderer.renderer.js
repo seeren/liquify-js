@@ -15,7 +15,7 @@ export class Renderer extends WebGLRenderer {
             alpha: true,
             preserveDrawingBuffer: true
         });
-        this.setClearColor(new Color(`#000000`), 0);
+        this.setClearColor(new Color("#000000"), 0);
         this.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
         this.resize(element)
     }

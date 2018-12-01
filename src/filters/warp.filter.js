@@ -31,12 +31,12 @@ export class WarpFilter {
     resize(mesh) {
         this.mesh = mesh;
         this.vertices = [];
-        mesh.geometry.vertices.forEach(vertice => {
+        mesh.geometry.vertices.forEach((vertice) => {
             this.vertices.push({
                 x: vertice.x,
                 y: vertice.y,
                 z: vertice.z
-            })
+            });
         });
     }
 

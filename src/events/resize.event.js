@@ -14,7 +14,7 @@ export class Resize extends Event {
      * @returns {this}
      */
     register() {
-        window.addEventListener(`resize`, this.emit);
+        window.addEventListener("resize", this.emit);
         return this;
     }
 
@@ -22,7 +22,7 @@ export class Resize extends Event {
      * @returns {this}
      */
     unregister() {
-        window.removeEventListener(`resize`, this.emit);
+        window.removeEventListener("resize", this.emit);
         return this;
     }
 
