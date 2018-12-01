@@ -31,15 +31,15 @@ export class WarpFilter {
      * @param {Mesh} mesh 
      */
     resize(mesh) {
-        this.vertices = [];
         this.mesh = mesh;
-        for (let i = 0, l = mesh.geometry.vertices.length; i < l; i++) {
+        this.vertices = [];
+        mesh.geometry.vertices.forEach(vertice => {
             this.vertices.push({
-                x: mesh.geometry.vertices[i].x,
-                y: mesh.geometry.vertices[i].y,
-                z: mesh.geometry.vertices[i].z
+                x: vertice.x,
+                y: vertice.y,
+                z: vertice.z
             })
-        }
+        });
     }
 
     /**
@@ -47,14 +47,14 @@ export class WarpFilter {
      */
     render() {
         this.frequencyIncrement += this.frequency;
-        for (let i = 0, l = this.vertices.length; i < l; i++) {
-            this.mesh.geometry.vertices[i].z = this.vertices[i].z + (
+        this.vertices.forEach((vertice, index) => {
+            this.mesh.geometry.vertices[index].z = vertice.z + (
                 this.size * window.Math.cos(
-                    this.frequencyIncrement + i * this.radian
+                    this.frequencyIncrement + index * this.radian
                 )
             );
             this.mesh.geometry.verticesNeedUpdate = true;
-        }
+        });
     }
 
 }
