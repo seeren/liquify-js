@@ -6,9 +6,9 @@ export class WarpFilter {
      * @constructor
      */
     constructor() {
-        this.frequency = 0.5;
-        this.radian = 1.5;
-        this.size = 0.004;
+        this.frequency;
+        this.radian;
+        this.size;
         this.vertices = [];
         this.frequencyIncrement = 0;
     }
