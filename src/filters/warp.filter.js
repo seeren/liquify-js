@@ -8,16 +8,31 @@ export class WarpFilter {
     constructor() {
         this.frequency = 0.5;
         this.radian = 1.5;
-        this.amplitude = 0.004;
-        this.frequencyIncrement = 0;
+        this.size = 0.004;
         this.vertices = [];
+        this.frequencyIncrement = 0;
+    }
+
+    /**
+     * @param {float} degree
+     */
+    set degree(degree) {
+        this.radian = degree * (Math.PI / 180);
+    }
+
+    /**
+     * @param {float} amplitude
+     */
+    set amplitude(amplitude) {
+        this.size = amplitude / 100;
     }
 
     /**
      * @param {Mesh} mesh 
      */
-    setMesh(mesh) {
+    resize(mesh) {
         this.vertices = [];
+        this.mesh = mesh;
         for (let i = 0, l = mesh.geometry.vertices.length; i < l; i++) {
             this.vertices.push({
                 x: mesh.geometry.vertices[i].x,
@@ -25,7 +40,6 @@ export class WarpFilter {
                 z: mesh.geometry.vertices[i].z
             })
         };
-        this.mesh = mesh;
     }
 
     /**
@@ -35,7 +49,7 @@ export class WarpFilter {
         this.frequencyIncrement += this.frequency;
         for (let i = 0, l = this.vertices.length; i < l; i++) {
             this.mesh.geometry.vertices[i].z = this.vertices[i].z + (
-                this.amplitude * window.Math.cos(
+                this.size * window.Math.cos(
                     this.frequencyIncrement + i * this.radian
                 )
             );
