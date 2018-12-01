@@ -51,7 +51,7 @@
 </head>
 
 <body>
-    <div liquify class="screen"></div>
+    <div liquify liquify.frequency="0.5" liquify.degree="15" liquify.amplitude="5" class="screen"></div>
     <h1 class="title">
         Liquify HTML Content
     </h1>
@@ -62,12 +62,16 @@
             var gui = new dat.GUI();
             var screen = window.document.querySelector("[liquify]");
             gui.add(screen.Liquify, 'frequency', 0, 1).name("Frequency");
-            gui.add({ degree: 55 }, 'degree', 0, 360).name("Radian").onChange(
+            gui.add({
+                degree: screen.Liquify.radian * 180 / Math.PI
+            }, 'degree', 0, 360).name("Radian").onChange(
                 function (degree) {
                     screen.Liquify.degree = degree;
                 }
             );
-            gui.add({ amplitude: 0.5 }, 'amplitude', 0, 10).name("Amplitude").onChange(
+            gui.add({
+                amplitude: screen.Liquify.size * 100
+            }, 'amplitude', 0, 10).name("Amplitude").onChange(
                 function (amplitude) {
                     screen.Liquify.amplitude = amplitude;
                 }
