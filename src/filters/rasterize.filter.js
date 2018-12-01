@@ -18,7 +18,7 @@ export class Rasterize {
             container.style.width = `${node.offsetWidth}px`;
             container.style.height = `${node.offsetHeight}px`;
             node.style.display = `none`;
-            container.style.display = `block`;
+            container.style.display = ``;
         });
     }
 
