@@ -33,20 +33,23 @@ export let liquify = global.liquify = new class {
         window.document.querySelectorAll(`[liquify]`).forEach((node) => {
             const filter = new WarpFilter;
             const container = window.document.createElement(`liquify`);
+            filter.frequency = this.getAttribute(node, `liquify.frequency`, 0.5);
+            filter.degree = this.getAttribute(node, `liquify.degree`, 55);
+            filter.amplitude = this.getAttribute(node, `liquify.amplitude`, 0.5);
             container.className = node.className || ``;
-            filter.frequency = window.parseFloat(
-                node.getAttribute(`liquify.frequency`)
-            ) || 0.5;
-            filter.degree = window.parseFloat(
-                node.getAttribute(`liquify.degree`)
-            ) || 55;
-            filter.amplitude = window.parseFloat(
-                node.getAttribute(`liquify.amplitude`)
-            ) || 0.5;
             container.style = node.style;
             container.style.display = `none`;
             this.render(node, container, filter);
         });
+    }
+
+    /**
+     * @param {HTMLElement} element 
+     * @param {string} name 
+     * @param {float} defaultValue 
+     */
+    getAttribute(element, name, defaultValue) {
+        return window.parseFloat(element.getAttribute(name)) || defaultValue;
     }
 
     /**
