@@ -37,7 +37,7 @@ export class Resize extends Event {
                 () => this.callables.forEach(callable => callable()),
                 100
             );
-        }
+        };
     }
 
 }
