@@ -2,4 +2,5 @@
 /.vscode/
 /coverage/
 /node_modules/
+/ressources/psd
 package-lock.json
