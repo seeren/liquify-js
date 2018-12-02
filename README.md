@@ -21,7 +21,7 @@ Include JavaScript file.
 <script type="text/javascript" src="node_modules/liquify-js/dist/liquify.js"></script>
 ```
 
-## 🔨 Usage
+## 💧 Usage
 
 Add **liquify** attribute to an HTMLElement.
 ```html
