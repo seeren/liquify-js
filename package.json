@@ -25,8 +25,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "html2canvas": "latest",
-    "three": "latest"
+    "html2canvas": "latest"
   },
   "devDependencies": {
     "@babel/cli": "latest",
@@ -46,6 +45,7 @@
     "nyc": "latest",
     "sinon": "latest",
     "style-loader": "latest",
+    "three": "latest",
     "webpack": "latest",
     "webpack-cli": "latest"
   },
