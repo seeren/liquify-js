@@ -1,7 +1,7 @@
 {
   "name": "liquify-js",
   "description": "Liquify filter for HTML elements",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "keywords": [
     "liquify",
     "web-gl",
