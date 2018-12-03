@@ -1,10 +1,11 @@
 {
   "name": "liquify-js",
   "description": "Liquify filter for HTML elements",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "keywords": [
     "liquify",
     "web-gl",
+    "warp",
     "filter"
   ],
   "homepage": "https://seeren.github.io/liquify-js/",
@@ -24,9 +25,6 @@
     "url": "https://github.com/seeren/liquify-js"
   },
   "license": "MIT",
-  "dependencies": {
-    "html2canvas": "latest"
-  },
   "devDependencies": {
     "@babel/cli": "latest",
     "@babel/core": "latest",
@@ -39,6 +37,7 @@
     "chai": "latest",
     "coveralls": "latest",
     "cross-env": "latest",
+    "html2canvas": "latest",
     "jsdom": "latest",
     "mocha": "latest",
     "mocha-lcov-reporter": "latest",
