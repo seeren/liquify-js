@@ -1,3 +1,5 @@
+<img src="ressources/images/fish.gif" align="right">
+
 # Liquify js
 
 **Web-GL filter for rasterize and liquify HTML elements**
@@ -8,7 +10,6 @@
 [![Downloads](https://img.shields.io/npm/dt/liquify-js.svg)](https://www.npmjs.com/package/liquify-js)
 [![Release](https://img.shields.io/npm/v/liquify-js.svg)](https://www.npmjs.com/package/liquify-js)
 
-<img src="ressources/images/fish.gif" align="right">
 
 ## Demo
 
