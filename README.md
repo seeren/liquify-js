@@ -1,6 +1,6 @@
-<img src="ressources/images/fish.gif" align="right">
-
 # Liquify js
+
+<img src="ressources/images/fish.gif" align="right">
 
 **Web-GL filter for rasterize and liquify HTML elements**
 
