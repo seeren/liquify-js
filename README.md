@@ -1,7 +1,5 @@
 # Liquify js
 
-<img src="ressources/images/fish.gif" align="right">
-
 **Web-GL filter for rasterize and liquify HTML elements**
 
 [![Build Status](https://travis-ci.org/seeren/liquify-js.svg?branch=master)](https://travis-ci.org/seeren/liquify-js)
@@ -9,6 +7,12 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/89e8998a632244a9b14061503b12bd03)](https://www.codacy.com/app/seeren/liquify-js?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=seeren/liquify-js&amp;utm_campaign=Badge_Grade)
 [![Downloads](https://img.shields.io/npm/dt/liquify-js.svg)](https://www.npmjs.com/package/liquify-js)
 [![Release](https://img.shields.io/npm/v/liquify-js.svg)](https://www.npmjs.com/package/liquify-js)
+
+<img src="ressources/images/fish.gif" align="right">
+
+## Demo
+
+Try Liquify filter by visiting the [GitHub Pages](https://seeren.github.io/liquify-js/).
 
 ## 📦 Install
 
@@ -20,9 +24,6 @@ Include JavaScript file.
 ```html
 <script type="text/javascript" src="node_modules/liquify-js/dist/liquify.js"></script>
 ```
-## 😻 Demo
-
-Try the WebGL filter on an HTMLElement by visiting the [GitHub Pages](https://seeren.github.io/liquify-js/).
 
 ## 💧 Usage
 
