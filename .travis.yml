@@ -1,9 +1,12 @@
+os: linux
 language: node_js
 node_js:
-    - "8"
+  - '14'
+cache:
+  npm: false
 before_script:
-    - npm install
+  - npm install
 script:
-    - npm test
+  - npm test
 after_success:
-    - npm run test:coveralls
+  - 'npm run test:coveralls'
