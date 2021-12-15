@@ -1,31 +1,31 @@
 export class Event {
 
-    /**
-     * @constructor
-     */
-    constructor() {
-        this.callables = [];
-    }
+    #callables = [];
 
     /**
-     * @param {Function} callable 
-     * @returns {this}
+     * @param {Function} callable
      */
     attach(callable) {
-        this.callables.push(callable);
-        return this;
+        this.#callables.push(callable);
     }
 
     /**
-     * @param {Function} callable 
-     * @returns {this}
+     * @param {Function} callable
      */
     detach(callable) {
-        const key = this.callables.indexOf(callable);
+        const key = this.#callables.indexOf(callable);
         if (-1 < key) {
             this.callables.splice(key, 1);
         }
-        return this;
+    }
+
+    notify() {
+        this.#callables.forEach((callable) => callable());
+    }
+
+    clear() {
+        this.#callables.splice(0);
+        this.unregister();
     }
 
 }

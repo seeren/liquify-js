@@ -1,43 +1,20 @@
-import { Event } from "./event";
+import { Event } from './event';
 
-export class Resize extends Event {
+export class ResizeEvent extends Event {
 
-    /**
-     * @constructor
-     */
-    constructor() {
-        super();
-        this.emit();
-    }
+    #timeoutId;
 
-    /**
-     * @returns {this}
-     */
+    #resize = () => {
+        window.clearTimeout(this.#timeoutId);
+        this.#timeoutId = window.setTimeout(() => this.notify(), 100);
+    };
+
     register() {
-        window.addEventListener("resize", this.emit);
-        return this;
+        window.addEventListener('resize', this.#resize);
     }
 
-    /**
-     * @returns {this}
-     */
     unregister() {
-        window.removeEventListener("resize", this.emit);
-        return this;
-    }
-
-    /**
-     * @returns {void}
-     */
-    emit() {
-        let timeout = 0;
-        this.emit = () => {
-            window.clearTimeout(timeout);
-            timeout = window.setTimeout(
-                () => this.callables.forEach((callable) => callable()),
-                100
-            );
-        };
+        window.removeEventListener('resize', this.#resize);
     }
 
 }
