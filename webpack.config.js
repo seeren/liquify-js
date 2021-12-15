@@ -1,39 +1,56 @@
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: [
         './src/index.js',
     ],
     output: {
-		path:  __dirname + "/dist",
-        filename: 'liquify.js'
+        path: `${__dirname}/dist`,
+        filename: 'liquify.js',
+        globalObject: 'this',
+        assetModuleFilename: 'assets/[name][ext]',
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: [
-                    'babel-loader'
-                ]
-            }
-        ]
+                loader: 'babel-loader',
+            },
+            {
+                test: /\.html$/,
+                exclude: /node_modules/,
+                use: 'raw-loader',
+            },
+            {
+                test: /\.(jpg|png|woff|woff2|eot|ttf|svg|ico)$/,
+                type: 'asset/resource',
+            },
+        ],
     },
     watchOptions: {
         ignored: [
-            /node_modules/,
-            /test/
-        ]
+            '.nyc_output',
+            'coverage',
+            'node_modules',
+            'resources',
+            'test',
+            'www',
+        ],
     },
     plugins: [
-        new BrowserSyncPlugin({
-            host: 'localhost',
-            port: 3000,
-            server: {
-                baseDir: [
-                    './'
-                ]
-            }
-        })
-    ]
+        new HtmlWebpackPlugin({
+            template: './src/demo.html',
+            filename: 'demo.html',
+        }),
+    ],
+    infrastructureLogging: {
+        level: 'error',
+    },
+    devServer: {
+        static: './src/',
+        https: false,
+        host: 'localhost',
+        port: 8080,
+    },
 };
