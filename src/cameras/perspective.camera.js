@@ -1,17 +1,16 @@
-import { PerspectiveCamera } from "three";
+import { PerspectiveCamera as ThreePerspectiveCamera } from 'three';
 
-export class Perspective extends PerspectiveCamera {
+export class PerspectiveCamera extends ThreePerspectiveCamera {
 
     /**
-     * @constructor
-     * @param {HTMLElement} element 
+     * @param {HTMLElement} element
      */
     constructor(element) {
-        super(45, element.offsetWidth / element.offsetHeight, 0.1, 100);
+        super(45, element.offsetWidth / element.offsetHeight, 0.1, 50);
     }
 
     /**
-     * @param {HTMLElement} element 
+     * @param {HTMLElement} element
      */
     resize(element) {
         this.aspect = element.offsetWidth / element.offsetHeight;

@@ -5,26 +5,25 @@ import {
     TextureLoader,
     ClampToEdgeWrapping,
     LinearFilter,
-    RGBFormat
-} from "three";
+    RGBFormat,
+} from 'three';
 
 export class Plane extends Mesh {
 
     /**
-     * @constructor
-     * @param {Camera} camera 
-     * @param {HTMLElement} element 
-     * @param {string} src 
+     * @param {Camera} camera
+     * @param {HTMLElement} element
+     * @param {String} src
      */
     constructor(camera, element, src) {
         super(
             new PlaneGeometry(
-                (2 * window.Math.tan((camera.fov * window.Math.PI / 180) / 2)) * camera.aspect,
-                2 * window.Math.tan((camera.fov * window.Math.PI / 180) / 2),
+                (2 * window.Math.tan((camera.fov * (window.Math.PI / 180)) / 2)) * camera.aspect,
+                2 * window.Math.tan((camera.fov * (window.Math.PI / 180)) / 2),
                 window.Math.ceil(element.offsetWidth / 55),
-                window.Math.ceil(element.offsetHeight / 55 / 2)
+                window.Math.ceil(element.offsetHeight / 55 / 2),
             ),
-            new MeshBasicMaterial({ map: new TextureLoader().load(src) })
+            new MeshBasicMaterial({ map: new TextureLoader().load(src) }),
         );
         this.rotation.x = -Math.PI / 2;
         this.material.map.wrapS = ClampToEdgeWrapping;
