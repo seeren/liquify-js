@@ -2,6 +2,10 @@ export class Event {
 
     #callables = [];
 
+    get callables() {
+        return this.#callables;
+    }
+
     /**
      * @param {Function} callable
      */
