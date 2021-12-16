@@ -20,9 +20,9 @@ export class AnimationEvent extends Event {
         }
     };
 
-    constructor(fps) {
+    constructor(fps = 30) {
         super();
-        this.fps = fps || 30;
+        this.fps = fps;
         this.#from = window.Date.now();
     }
 
