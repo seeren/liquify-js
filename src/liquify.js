@@ -1,16 +1,11 @@
 import { PerspectiveCamera } from './cameras/perspective.camera';
-import { AnimationEvent } from './events/animation.event';
-import { ResizeEvent } from './events/resize.event';
 import { WebGLRenderer } from './renderers/renderer.renderer';
 import { LiquifyScene } from './scenes/liquify.scene';
 import { RasterizeFilter } from './filters/rasterize.filter';
 import { ElementBuilder } from './builder/element.builder';
+import { EventManager } from './events/event.manager';
 
 export class Liquify {
-
-    #resizeEvent = new ResizeEvent();
-
-    #anmationEvent = new AnimationEvent();
 
     #rasterizeFilter = new RasterizeFilter();
 
@@ -21,46 +16,63 @@ export class Liquify {
     }
 
     upgrade() {
-        this.#resizeEvent.clear();
-        this.#anmationEvent.clear();
+        EventManager.clear();
         const liquifyList = window.document.querySelectorAll('[data-liquify]');
         if (liquifyList.length) {
-            this.#resizeEvent.register();
-            this.#anmationEvent.register();
-            liquifyList.forEach((target) => {
-                const liquify = window.document.createElement('liquify');
-                if (target.className) {
-                    liquify.className = target.className;
-                }
-                if (target.style) {
-                    liquify.style = target.style;
-                }
-                liquify.style.display = 'none';
-                target.parentNode.insertBefore(liquify, target.nextSibling);
-                this.#builder.build(target);
-                this.#render(target, liquify);
-            });
+            EventManager.get('resize').register();
+            EventManager.get('animation').register();
+            this.#build(liquifyList);
         }
+    }
+
+    #build(liquifyList) {
+        liquifyList.forEach((target) => {
+            const liquify = window.document.createElement('liquify');
+            target.parentNode.insertBefore(liquify, target.nextSibling);
+            this.#builder.build(target);
+            this.#register(target, liquify);
+        });
     }
 
     /**
      * @param {HTMLElement} target
      * @param {HTMLElement} liquify
      */
-    async #render(target, liquify) {
+    async #register(target, liquify) {
         const canvas = await this.#rasterizeFilter.render(target, liquify);
         const renderer = new WebGLRenderer(liquify);
         const camera = new PerspectiveCamera(liquify);
         const scene = new LiquifyScene(camera, liquify, canvas.toDataURL());
         target.Liquify.mesh = scene.plane;
-        this.#resizeEvent.attach(async () => {
+        this.#registerResize(target, liquify, renderer, scene, camera);
+        this.#registerRender(target, renderer, scene, camera);
+    }
+
+    /**
+     * @param {HTMLElement} target
+     * @param {HTMLElement} liquify
+     * @param {WebGLRenderer} renderer
+     * @param {LiquifyScene} scene
+     * @param {PerspectiveCamera} camera
+     */
+    #registerResize(target, liquify, renderer, scene, camera) {
+        EventManager.get('resize').attach(async () => {
             const resized = await this.#rasterizeFilter.resize(target, liquify);
             renderer.resize(liquify);
-            camera.resize(liquify);
             scene.resize(camera, liquify, resized.toDataURL());
+            camera.resize(liquify);
             target.Liquify.resize(scene.plane);
         });
-        this.#anmationEvent.attach(() => {
+    }
+
+    /**
+     * @param {HTMLElement} target
+     * @param {WebGLRenderer} renderer
+     * @param {LiquifyScene} scene
+     * @param {PerspectiveCamera} camera
+     */
+    #registerRender(target, renderer, scene, camera) {
+        EventManager.get('animation').attach(() => {
             target.Liquify.render();
             renderer.render(scene, camera);
         });
