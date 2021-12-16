@@ -9,7 +9,6 @@ export class WebGLRenderer extends ThreeWebGLRenderer {
         super({
             antialias: true,
             alpha: true,
-            preserveDrawingBuffer: true,
         });
         this.setClearColor(0x000000, 0);
         this.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1);
