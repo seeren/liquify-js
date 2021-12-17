@@ -17,16 +17,17 @@ export class Liquify {
 
     upgrade() {
         EventManager.clear();
-        const liquifyList = window.document.querySelectorAll('[data-liquify]');
-        if (liquifyList.length) {
+        window.document.querySelectorAll('liquify').forEach((liquify) => liquify.parentNode.removeChild(liquify));
+        const targetList = window.document.querySelectorAll('[data-liquify]');
+        if (targetList.length) {
             EventManager.get('resize').register();
             EventManager.get('animation').register();
-            this.#build(liquifyList);
+            this.#build(targetList);
         }
     }
 
-    #build(liquifyList) {
-        liquifyList.forEach((target) => {
+    #build(targetList) {
+        targetList.forEach((target) => {
             const liquify = window.document.createElement('liquify');
             target.parentNode.insertBefore(liquify, target.nextSibling);
             this.#builder.build(target);
@@ -59,8 +60,8 @@ export class Liquify {
         EventManager.get('resize').attach(async () => {
             const resized = await this.#rasterizeFilter.resize(target, liquify);
             renderer.resize(liquify);
-            scene.resize(camera, liquify, resized.toDataURL());
             camera.resize(liquify);
+            scene.resize(camera, liquify, resized.toDataURL());
             target.Liquify.resize(scene.plane);
         });
     }
