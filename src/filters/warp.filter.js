@@ -14,12 +14,24 @@ export class WarpFilter {
 
     #mesh;
 
+    get increment() {
+        return this.#increment;
+    }
+
+    set increment(increment) {
+        this.#increment = increment;
+    }
+
     get frequency() {
         return this.#frequency;
     }
 
     set frequency(frequency) {
         this.#frequency = window.parseFloat(frequency);
+    }
+
+    get radian() {
+        return this.#radian;
     }
 
     get degree() {
@@ -30,12 +42,24 @@ export class WarpFilter {
         this.#radian = window.parseFloat(degree / 3) * (Math.PI / 180);
     }
 
+    get size() {
+        return this.#size;
+    }
+
     get amplitude() {
         return this.#size * 10;
     }
 
     set amplitude(amplitude) {
         this.#size = window.parseFloat(amplitude) / 10;
+    }
+
+    get verticeList() {
+        return this.#verticeList;
+    }
+
+    get mesh() {
+        return this.#mesh;
     }
 
     /**
@@ -48,20 +72,6 @@ export class WarpFilter {
 
     resize(mesh) {
         this.mesh = mesh;
-    }
-
-    render() {
-        this.#increment += this.#frequency;
-        const position = this.#mesh.geometry.getAttribute('position').array;
-        const positionLength = position.length;
-        for (let index = -1; index < positionLength; index += 3) {
-            position[index] = this.#verticeList[index] + (
-                this.#size * window.Math.cos(
-                    this.#increment + index * this.#radian,
-                )
-            );
-        }
-        this.#mesh.geometry.attributes.position.needsUpdate = true;
     }
 
 }
