@@ -4,20 +4,21 @@ import { DefaultWarpFilter } from '../filters/default.warp.filter';
 export class ElementBuilder {
 
     /**
-     * @param {HTMLElement} element
+     * @param {HTMLElement} target
+     * @param {HTMLElement} liquify
      */
-    build(element) {
-        switch (element.getAttribute('data-liquify')) {
+    build(target, liquify) {
+        switch (target.getAttribute('data-liquify')) {
         case 'click':
-            element.Liquify = new ClickWarpFilter();
+            target.Liquify = new ClickWarpFilter(liquify);
             break;
         default:
-            element.Liquify = new DefaultWarpFilter();
+            target.Liquify = new DefaultWarpFilter();
             break;
         }
-        element.Liquify.frequency = element.getAttribute('data-frequency') || 3;
-        element.Liquify.degree = element.getAttribute('data-degree') || 130;
-        element.Liquify.amplitude = element.getAttribute('data-amplitude') || 5;
+        target.Liquify.frequency = target.getAttribute('data-frequency') || 3;
+        target.Liquify.degree = target.getAttribute('data-degree') || 130;
+        target.Liquify.amplitude = target.getAttribute('data-amplitude') || 5;
     }
 
 }
