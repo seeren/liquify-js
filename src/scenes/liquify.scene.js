@@ -9,7 +9,7 @@ export class LiquifyScene extends Scene {
     /**
      * @param {Camera} camera
      * @param {HTMLElement} element
-     * @param {string} src
+     * @param {String} src
      */
     constructor(camera, element, src) {
         super();
@@ -25,7 +25,7 @@ export class LiquifyScene extends Scene {
 
     /**
      * @param {HTMLElement} element
-     * @param {string} src
+     * @param {String} src
      */
     resize(camera, element, src) {
         this.remove(this.#plane);
