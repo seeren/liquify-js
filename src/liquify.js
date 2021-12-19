@@ -40,7 +40,7 @@ export class Liquify {
         const renderer = new WebGLRenderer(liquify);
         const camera = new PerspectiveCamera(liquify);
         const scene = new LiquifyScene(camera, liquify, canvas.toDataURL());
-        target.Liquify.setGeometry(scene.plane.geometry);
+        target.Liquify.setGeometry(scene.plane, camera);
         this.#registerResize(target, liquify, renderer, scene, camera);
         this.#registerRender(target, renderer, scene, camera);
     }
@@ -58,7 +58,7 @@ export class Liquify {
             renderer.resize(liquify);
             camera.resize(liquify);
             scene.resize(camera, liquify, resized.toDataURL());
-            target.Liquify.resize(scene.plane.geometry);
+            target.Liquify.resize(scene.plane, camera);
         });
     }
 

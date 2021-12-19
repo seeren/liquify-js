@@ -4,7 +4,7 @@ export class DefaultWarpFilter extends WarpFilter {
 
     render() {
         this.increment += this.frequency;
-        const position = this.geometry.getAttribute('position').array;
+        const position = this.mesh.geometry.getAttribute('position').array;
         const positionLength = position.length;
         for (let index = -1; index < positionLength; index += 3) {
             position[index] = this.verticeList[index] + (
@@ -13,7 +13,7 @@ export class DefaultWarpFilter extends WarpFilter {
                 )
             );
         }
-        this.geometry.attributes.position.needsUpdate = true;
+        this.mesh.geometry.attributes.position.needsUpdate = true;
     }
 
 }
