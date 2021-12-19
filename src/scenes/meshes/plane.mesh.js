@@ -20,8 +20,8 @@ export class Plane extends Mesh {
             new PlaneGeometry(
                 (2 * window.Math.tan((camera.fov * (window.Math.PI / 180)) / 2)) * camera.aspect,
                 2 * window.Math.tan((camera.fov * (window.Math.PI / 180)) / 2),
-                window.Math.ceil(element.offsetWidth / 55),
-                window.Math.ceil(element.offsetHeight / 55 / 2),
+                window.Math.ceil(element.offsetWidth / 32),
+                window.Math.ceil(element.offsetHeight / 32 / 2),
             ),
             new MeshBasicMaterial({ map: new TextureLoader().load(src) }),
         );
