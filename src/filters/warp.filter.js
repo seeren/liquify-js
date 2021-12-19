@@ -1,6 +1,8 @@
-import { Mesh } from 'three';
+import { BufferGeometry } from 'three';
 
-export class WarpFilter {
+import { Filter } from './filter';
+
+export class WarpFilter extends Filter {
 
     #increment = 0;
 
@@ -12,7 +14,7 @@ export class WarpFilter {
 
     #verticeList;
 
-    #mesh;
+    #geometry;
 
     get increment() {
         return this.#increment;
@@ -58,20 +60,23 @@ export class WarpFilter {
         return this.#verticeList;
     }
 
-    get mesh() {
-        return this.#mesh;
+    get geometry() {
+        return this.#geometry;
     }
 
     /**
-     * @param {Mesh} mesh
+     * @param {BufferGeometry} geometry
      */
-    set mesh(mesh) {
-        this.#verticeList = mesh.geometry.getAttribute('position').array.slice(0);
-        this.#mesh = mesh;
+    setGeometry(geometry) {
+        this.#verticeList = geometry.getAttribute('position').array.slice(0);
+        this.#geometry = geometry;
     }
 
-    resize(mesh) {
-        this.mesh = mesh;
+    /**
+     * @param {BufferGeometry} geometry
+     */
+    resize(geometry) {
+        this.setGeometry(geometry);
     }
 
 }

@@ -22,17 +22,13 @@ export class Liquify {
         if (targetList.length) {
             EventManager.get('resize').register();
             EventManager.get('animation').register();
-            this.#build(targetList);
+            targetList.forEach((target) => {
+                const liquify = window.document.createElement('liquify');
+                target.parentNode.insertBefore(liquify, target.nextSibling);
+                this.#builder.build(target, liquify);
+                this.#register(target, liquify);
+            });
         }
-    }
-
-    #build(targetList) {
-        targetList.forEach((target) => {
-            const liquify = window.document.createElement('liquify');
-            target.parentNode.insertBefore(liquify, target.nextSibling);
-            this.#builder.build(target);
-            this.#register(target, liquify);
-        });
     }
 
     /**
@@ -44,7 +40,7 @@ export class Liquify {
         const renderer = new WebGLRenderer(liquify);
         const camera = new PerspectiveCamera(liquify);
         const scene = new LiquifyScene(camera, liquify, canvas.toDataURL());
-        target.Liquify.mesh = scene.plane;
+        target.Liquify.setGeometry(scene.plane.geometry);
         this.#registerResize(target, liquify, renderer, scene, camera);
         this.#registerRender(target, renderer, scene, camera);
     }
@@ -62,7 +58,7 @@ export class Liquify {
             renderer.resize(liquify);
             camera.resize(liquify);
             scene.resize(camera, liquify, resized.toDataURL());
-            target.Liquify.resize(scene.plane);
+            target.Liquify.resize(scene.plane.geometry);
         });
     }
 
