@@ -22,7 +22,7 @@ export class EventManager {
         if (!target && this.#eventList.has(eventName)) {
             return this.#eventList.get(eventName);
         }
-        if (this.#eventList.has(eventName)) {
+        if (this.#eventList.has(eventName) && this.#eventList.get(eventName).has(target)) {
             return this.#eventList.get(eventName).get(target);
         }
         switch (eventName) {
