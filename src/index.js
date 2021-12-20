@@ -5,6 +5,6 @@ import './assets/favicon.ico';
 
 window.document.addEventListener('readystatechange', () => {
     if ('complete' === window.document.readyState) {
-        global.liquify = new Liquify();
+        global.Liquify = new Liquify();
     }
 });
