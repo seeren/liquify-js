@@ -65,18 +65,18 @@ export class WarpFilter extends Filter {
     }
 
     /**
-     * @param {Mesh} mesh
-     */
-    setGeometry(mesh) {
-        this.#verticeList = mesh.geometry.getAttribute('position').array.slice(0);
-        this.#mesh = mesh;
+         * @param {Mesh} mesh
+         */
+    resize(mesh) {
+        this.setGeometry(mesh);
     }
 
     /**
      * @param {Mesh} mesh
      */
-    resize(mesh) {
-        this.setGeometry(mesh);
+    setGeometry(mesh) {
+        this.#verticeList = mesh.geometry.getAttribute('position').array.slice(0);
+        this.#mesh = mesh;
     }
 
 }
