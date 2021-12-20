@@ -1,6 +1,6 @@
 import { WarpFilter } from './warp.filter';
 
-export class DefaultWarpFilter extends WarpFilter {
+export class InfinitetWarpFilter extends WarpFilter {
 
     render() {
         this.increment += this.frequency;
