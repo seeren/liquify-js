@@ -16,6 +16,12 @@ export class WarpFilter extends Filter {
 
     #mesh;
 
+    #handler = () => this.render();
+
+    get handler() {
+        return this.#handler;
+    }
+
     get increment() {
         return this.#increment;
     }
@@ -65,8 +71,8 @@ export class WarpFilter extends Filter {
     }
 
     /**
-         * @param {Mesh} mesh
-         */
+     * @param {Mesh} mesh
+     */
     resize(mesh) {
         this.setGeometry(mesh);
     }
