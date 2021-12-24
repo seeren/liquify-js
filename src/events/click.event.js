@@ -27,8 +27,8 @@ export class ClickEvent extends Event {
                           / this.#element.offsetHeight) * 2 + 1;
             this.#raycaster.setFromCamera(this.#mouse, this.#camera);
             this.#raycaster.intersectObject(this.#mesh.parent).forEach(
-                (mesh) => mesh.object.userData.onclick
-                && mesh.object.userData.onclick(this.#mouse),
+                (intersectObject) => intersectObject.object.userData.onclick
+                && intersectObject.object.userData.onclick(intersectObject),
             );
         }
     };
@@ -39,10 +39,6 @@ export class ClickEvent extends Event {
     constructor(element) {
         super();
         this.#element = element;
-    }
-
-    get click() {
-        return this.#click;
     }
 
     /**
