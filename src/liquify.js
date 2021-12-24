@@ -69,10 +69,7 @@ export class Liquify {
      * @param {PerspectiveCamera} camera
      */
     #registerRender(target, renderer, scene, camera) {
-        EventManager.get('animation').attach(() => {
-            target.Liquify.render();
-            renderer.render(scene, camera);
-        });
+        EventManager.get('animation').attach(() => renderer.render(scene, camera));
     }
 
 }
