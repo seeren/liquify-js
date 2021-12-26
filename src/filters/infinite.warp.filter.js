@@ -10,7 +10,7 @@ export class InfinitetWarpFilter extends WarpFilter {
     setGeometry(mesh, camera) {
         super.setGeometry(mesh, camera);
         const animation = EventManager.get('animation');
-        animation.detach(this.handler).attach(this.handler);
+        animation.attach(this.handler);
     }
 
     render() {
