@@ -10,7 +10,10 @@ export class Event {
      * @param {Function} callable
      */
     attach(callable) {
-        this.#callables.push(callable);
+        const key = this.#callables.indexOf(callable);
+        if (-1 === key) {
+            this.#callables.push(callable);
+        }
         return this;
     }
 
