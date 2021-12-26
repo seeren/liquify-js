@@ -52,16 +52,34 @@
 </head>
 
 <body>
-    <div data-liquify="click" data-frequency="0.2" data-degree="19" data-amplitude="0.25">
+    <div data-liquify="touch"
+         data-duration="5"
+         data-frequency="0.25" 
+         data-degree="19" 
+         data-amplitude="0.5"
+         data-distance="75">
         <h1>Liquify HTML Content</h1>
     </div>
     <script>
         window.addEventListener('load', () => {
             const gui = new dat.GUI();
             const liquify = window.document.querySelector('[data-liquify]');
-            gui.add(liquify.Liquify, 'frequency', 0, 1).name("Frequency");
-            gui.add(liquify.Liquify, 'degree', 0, 360).name("Degree");
-            gui.add(liquify.Liquify, 'amplitude', 0, 1).name("amplitude");
+            gui.add({ Type: liquify.getAttribute('data-liquify') }, 'Type', {
+                Infinite: 'infinite',
+                Touch: 'touch',
+            }).onChange((data) => window.Liquify.upgrade(liquify.setAttribute('data-liquify', data)));
+            const commonFolder = gui.addFolder('Common settings');
+            const touchFolder = gui.addFolder('Touch settings');
+            commonFolder.add({ Frequency: liquify.Liquify.frequency || 0.2 }, 'Frequency', 0, 1)
+                .onChange((data) => liquify.setAttribute('data-frequency', liquify.Liquify.frequency = data));
+            commonFolder.add({ Degree: liquify.Liquify.degree || 19 }, 'Degree', 0, 360)
+                .onChange((data) => liquify.setAttribute('data-degree', liquify.Liquify.degree = data));
+            commonFolder.add({ Amplitude: liquify.Liquify.amplitude || 0.25 }, 'Amplitude', 0, 2)
+                .onChange((data) => liquify.setAttribute('data-amplitude', liquify.Liquify.amplitude = data));
+            touchFolder.add({ Duration: liquify.Liquify.duration || 5 }, 'Duration', 0, 10)
+                .onChange((data) => liquify.setAttribute('data-duration', liquify.Liquify.duration = data));
+            touchFolder.add({ Distance: liquify.Liquify.distance || 5 }, 'Distance', 0, 100)
+                .onChange((data) => liquify.setAttribute('data-distance', liquify.Liquify.distance = data));
         });
     </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.2/dat.gui.js"></script>

@@ -12,6 +12,7 @@ export class ElementBuilder {
         case 'touch':
             target.Liquify = new TouchWarpFilter(liquify);
             target.Liquify.duration = window.parseFloat(target.getAttribute('data-duration') || 5);
+            target.Liquify.distance = window.parseFloat(target.getAttribute('data-distance') || 75);
             break;
         default:
             target.Liquify = new InfinitetWarpFilter();
