@@ -1,5 +1,6 @@
-import { TouchWarpFilter } from '../filters/touch.warp.filter';
-import { InfinitetWarpFilter } from '../filters/infinite.warp.filter';
+import { ClickWarpFilter } from '../filters/wrap/click.warp.filter';
+import { InfinitetWarpFilter } from '../filters/wrap/infinite.warp.filter';
+import { MoveWarpFilter } from '../filters/wrap/move.warp.filter';
 
 export class ElementBuilder {
 
@@ -9,8 +10,13 @@ export class ElementBuilder {
      */
     build(target, liquify) {
         switch (target.getAttribute('data-liquify')) {
-        case 'touch':
-            target.Liquify = new TouchWarpFilter(liquify);
+        case 'click':
+            target.Liquify = new ClickWarpFilter(liquify);
+            target.Liquify.duration = window.parseFloat(target.getAttribute('data-duration') || 5);
+            target.Liquify.distance = window.parseFloat(target.getAttribute('data-distance') || 75);
+            break;
+        case 'move':
+            target.Liquify = new MoveWarpFilter(liquify);
             target.Liquify.duration = window.parseFloat(target.getAttribute('data-duration') || 5);
             target.Liquify.distance = window.parseFloat(target.getAttribute('data-distance') || 75);
             break;
