@@ -35,10 +35,12 @@ export class AnimationEvent extends Event {
 
     register() {
         this.#animate();
+        return this;
     }
 
     unregister() {
         window.cancelAnimationFrame(this.#intervalId);
+        return this;
     }
 
 }

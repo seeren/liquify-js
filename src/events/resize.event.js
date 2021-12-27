@@ -11,10 +11,12 @@ export class ResizeEvent extends Event {
 
     register() {
         window.addEventListener('resize', this.#resize);
+        return this;
     }
 
     unregister() {
         window.removeEventListener('resize', this.#resize);
+        return this;
     }
 
 }
