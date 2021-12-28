@@ -11,12 +11,18 @@ export class InfinitetWarpFilter extends WarpFilter {
         EventManager.get('animation').attach((this.handler));
     }
 
-    getCoeficient() {
-        return 1;
-    }
-
-    getAmplitude() {
-        return this.amplitude;
+    render() {
+        this.increment += this.frequency;
+        const position = this.mesh.geometry.getAttribute('position').array;
+        const positionLength = position.length;
+        for (let index = 0; index < positionLength; index += 3) {
+            const z = index + 2;
+            position[z] = (this.verticeList[z]
+                        + (this.amplitude * window.Math.cos(
+                            this.increment + index * this.radian,
+                        )));
+        }
+        this.mesh.geometry.attributes.position.needsUpdate = true;
     }
 
 }
