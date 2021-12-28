@@ -18,11 +18,30 @@ export class WarpFilter extends Filter {
 
     #handler = () => this.render();
 
+    get increment() {
+        return this.#increment;
+    }
+
+    /**
+     * @param {Number} frequency
+     */
+    set increment(increment) {
+        this.#increment = increment;
+    }
+
+    get frequency() {
+        return this.#frequency;
+    }
+
     /**
      * @param {Number} frequency
      */
     set frequency(frequency) {
         this.#frequency = window.parseFloat(frequency);
+    }
+
+    get radian() {
+        return this.#radian;
     }
 
     /**
@@ -32,15 +51,15 @@ export class WarpFilter extends Filter {
         this.#radian = window.parseFloat(degree / 3) * (Math.PI / 180);
     }
 
+    get amplitude() {
+        return this.#amplitude * 10;
+    }
+
     /**
      * @param {Number} amplitude
      */
     set amplitude(amplitude) {
         this.#amplitude = window.parseFloat(amplitude) / 10;
-    }
-
-    get amplitude() {
-        return this.#amplitude;
     }
 
     get verticeList() {
@@ -60,21 +79,6 @@ export class WarpFilter extends Filter {
      */
     resize(mesh) {
         this.setGeometry(mesh);
-    }
-
-    render() {
-        this.#increment += this.#frequency;
-        const position = this.#mesh.geometry.getAttribute('position').array;
-        const positionLength = position.length;
-        for (let index = 0; index < positionLength; index += 3) {
-            const z = index + 2;
-            position[z] = (this.verticeList[z]
-                        + (this.getAmplitude() * window.Math.cos(
-                            this.#increment + index * this.#radian,
-                        )))
-                        * this.getCoeficient(index);
-        }
-        this.#mesh.geometry.attributes.position.needsUpdate = true;
     }
 
     /**
