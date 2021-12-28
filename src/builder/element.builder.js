@@ -12,21 +12,26 @@ export class ElementBuilder {
         switch (target.getAttribute('data-liquify')) {
         case 'click':
             target.Liquify = new ClickWarpFilter(liquify);
-            target.Liquify.duration = window.parseFloat(target.getAttribute('data-duration') || 5);
-            target.Liquify.distance = window.parseFloat(target.getAttribute('data-distance') || 75);
+            this.#buildGesture(target);
             break;
         case 'move':
             target.Liquify = new MoveWarpFilter(liquify);
-            target.Liquify.duration = window.parseFloat(target.getAttribute('data-duration') || 5);
-            target.Liquify.distance = window.parseFloat(target.getAttribute('data-distance') || 75);
+            this.#buildGesture(target);
             break;
         default:
             target.Liquify = new InfinitetWarpFilter();
-            break;
         }
         target.Liquify.frequency = window.parseFloat(target.getAttribute('data-frequency') || 0.25);
         target.Liquify.degree = window.parseFloat(target.getAttribute('data-degree') || 130);
         target.Liquify.amplitude = window.parseFloat(target.getAttribute('data-amplitude') || 0.25);
+    }
+
+    /**
+     * @param {HTMLElement} target
+     */
+    #buildGesture(target) {
+        target.Liquify.duration = window.parseFloat(target.getAttribute('data-duration') || 5);
+        target.Liquify.distance = window.parseFloat(target.getAttribute('data-distance') || 75);
     }
 
 }
