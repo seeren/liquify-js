@@ -20,6 +20,9 @@ export class AnimationEvent extends Event {
         }
     };
 
+    /**
+     * @param {Number} fps
+     */
     constructor(fps = 30) {
         super();
         this.fps = fps;
