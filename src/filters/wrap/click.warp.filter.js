@@ -1,8 +1,7 @@
-import {
-    Vector3, Mesh, Camera, Intersection, Face,
-} from 'three';
+import { Mesh, Camera, Intersection } from 'three';
 
 import { EventManager } from '../../events/event.manager';
+import { MouseService } from './shared/mouse.service';
 import { WarpFilter } from './warp.filter';
 
 export class ClickWarpFilter extends WarpFilter {
@@ -13,13 +12,7 @@ export class ClickWarpFilter extends WarpFilter {
 
     #distance;
 
-    #dynamicAmplitude;
-
-    #intervalId;
-
-    #mouseVector;
-
-    #distanceMax;
+    #mouseList = [];
 
     /**
      * @param {HTMLElement} target
@@ -43,20 +36,6 @@ export class ClickWarpFilter extends WarpFilter {
         this.#distance = (10 - (10 * (distance / 100))) + 1;
     }
 
-    getCoeficient(index) {
-        const distance = this.#mouseVector.distanceTo(new Vector3(
-            this.verticeList[index],
-            this.verticeList[index + 1],
-            this.verticeList[index + 2],
-        ));
-        const coeficient = 1 - ((distance * this.#distance) / this.#distanceMax);
-        return 0 > coeficient ? 0 : coeficient;
-    }
-
-    getAmplitude() {
-        return this.#dynamicAmplitude;
-    }
-
     /**
      * @param {Mesh} mesh
      * @param {Camera} camera
@@ -75,56 +54,59 @@ export class ClickWarpFilter extends WarpFilter {
         this.mesh.userData.onclick = (intersectObject) => this.#click(intersectObject);
     }
 
+    render() {
+        this.increment += this.frequency;
+        const position = this.mesh.geometry.getAttribute('position').array;
+        const positionLength = position.length;
+        for (let index = 0; index < positionLength; index += 3) {
+            let coeficient = 0;
+            let amplitude = 0;
+            this.#mouseList.forEach((mouse) => {
+                const mouseCoeficient = MouseService.getCoeficient(
+                    this.verticeList,
+                    mouse,
+                    this.#distance,
+                    index,
+                );
+                if (mouseCoeficient > coeficient && mouse.amplitude > amplitude) {
+                    amplitude = mouse.amplitude;
+                }
+                if (coeficient < mouseCoeficient) {
+                    coeficient = mouseCoeficient;
+                }
+            });
+            const z = index + 2;
+            position[z] = (this.verticeList[z]
+                        + (amplitude * window.Math.cos(
+                            this.increment + index * this.radian,
+                        ))) * coeficient;
+        }
+        this.mesh.geometry.attributes.position.needsUpdate = true;
+    }
+
     /**
      * @param {Intersection} intersectObject
      */
     #click(intersectObject) {
-        clearInterval(this.#intervalId);
-        this.#setMouseVector(intersectObject.face);
-        this.#setDistanceMax(this.#mouseVector);
-        this.#dynamicAmplitude = this.amplitude;
-        const decrement = this.#dynamicAmplitude / ((this.#duration / 50) * 1000);
-        this.#intervalId = window.setInterval(() => {
-            if (0 > this.#dynamicAmplitude) {
-                this.#dynamicAmplitude = decrement;
-                clearInterval(this.#intervalId);
-                EventManager.get('animation').detach(this.handler);
+        const mouse = MouseService.create(
+            this.mesh,
+            intersectObject.face,
+            this.verticeList,
+            this.amplitude / 10,
+        );
+        this.#mouseList.push(mouse);
+        const decrement = mouse.amplitude / ((this.#duration / 50) * 1000);
+        const intervalId = window.setInterval(() => {
+            if (decrement > mouse.amplitude) {
+                clearInterval(intervalId);
+                this.#mouseList.splice(this.#mouseList.indexOf(mouse), 1);
+                if (!this.#mouseList.length) {
+                    EventManager.get('animation').detach(this.handler);
+                }
             }
-            this.#dynamicAmplitude -= decrement;
+            mouse.amplitude -= decrement;
         }, 50);
         EventManager.get('animation').attach(this.handler);
-        this.render(true);
-    }
-
-    /**
-     * @param {Face} face
-     */
-    #setMouseVector(face) {
-        const position = this.mesh.geometry.getAttribute('position');
-        this.#mouseVector = new Vector3(
-            position.getX(face.a),
-            position.getY(face.a),
-            position.getZ(face.a),
-        );
-    }
-
-    /**
-     * @param {Vector3} vector
-     */
-    #setDistanceMax(vector) {
-        let distanceMax = 0;
-        const verticeListLength = this.verticeList.length;
-        for (let index = 0; index < verticeListLength; index += 3) {
-            const distance = vector.distanceTo(new Vector3(
-                this.verticeList[index],
-                this.verticeList[index + 1],
-                this.verticeList[index + 2],
-            ));
-            if (distance > distanceMax) {
-                distanceMax = distance;
-            }
-        }
-        this.#distanceMax = distanceMax;
     }
 
 }
