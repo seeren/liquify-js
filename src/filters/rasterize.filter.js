@@ -16,20 +16,20 @@ export class RasterizeFilter extends Filter {
      */
     async render(target, liquify) {
         super.render();
-        target.style.display = '';
         liquify.style.display = 'none';
+        target.style.opacity = 1;
+        const { position, display } = window.getComputedStyle(target);
         const canvas = await html2canvas(target, { logging: false, backgroundColor: null });
-        const styles = window.getComputedStyle(target);
-        if ('' !== styles.cssText) {
-            liquify.style.cssText = styles.cssText;
-        } else {
-            const cssText = Array.from(styles).reduce(
-                (css, propertyName) => `${css}${propertyName}:${styles.getPropertyValue(propertyName)};`,
-            );
-            liquify.style.cssText = cssText;
+        liquify.style.width = `${target.offsetWidth}px`;
+        liquify.style.height = `${target.offsetHeight}px`;
+        liquify.style.display = display;
+        liquify.style.position = position;
+        if ('static' === position) {
+            liquify.style.marginTop = `-${target.offsetHeight}px`;
         }
-        target.style.display = 'none';
-        liquify.style.display = '';
+        liquify.style.backgroundImage = `url(${canvas.toDataURL()})`;
+        liquify.style.backgroundSize = '100% 100%';
+        target.style.opacity = 0;
         return canvas;
     }
 
