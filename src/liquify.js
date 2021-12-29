@@ -15,20 +15,26 @@ export class Liquify {
         this.upgrade();
     }
 
-    upgrade() {
-        EventManager.clear();
-        window.document.querySelectorAll('liquify').forEach((liquify) => liquify.parentNode.removeChild(liquify));
-        const targetList = window.document.querySelectorAll('[data-liquify]');
-        if (targetList.length) {
-            EventManager.get('resize').register();
-            EventManager.get('animation').register();
-            targetList.forEach((target) => {
-                const liquify = window.document.createElement('liquify');
-                target.parentNode.insertBefore(liquify, target.nextSibling);
-                this.#builder.build(target, liquify);
-                this.#register(target, liquify);
-            });
-        }
+    async upgrade() {
+        return new Promise((resolve) => {
+            EventManager.clear();
+            window.document.querySelectorAll('liquify').forEach((liquify) => liquify.parentNode.removeChild(liquify));
+            const targetList = window.document.querySelectorAll('[data-liquify]');
+            if (targetList.length) {
+                EventManager.get('resize').register();
+                EventManager.get('animation').register();
+                targetList.forEach(async (target) => {
+                    const liquify = window.document.createElement('liquify');
+                    target.parentNode.insertBefore(liquify, target.nextSibling);
+                    this.#builder.build(target, liquify);
+                    this.#register(target, liquify);
+                    const liquifyList = document.querySelectorAll('liquify');
+                    if (targetList.length === liquifyList.length) {
+                        resolve(liquifyList);
+                    }
+                });
+            }
+        });
     }
 
     /**
@@ -42,7 +48,7 @@ export class Liquify {
         const scene = new LiquifyScene(camera, liquify, canvas.toDataURL());
         target.Liquify.setGeometry(scene.plane, camera);
         this.#registerResize(target, liquify, renderer, scene, camera);
-        this.#registerRender(target, renderer, scene, camera);
+        this.#registerRender(renderer, scene, camera);
     }
 
     /**
@@ -63,12 +69,11 @@ export class Liquify {
     }
 
     /**
-     * @param {HTMLElement} target
      * @param {WebGLRenderer} renderer
      * @param {LiquifyScene} scene
      * @param {PerspectiveCamera} camera
      */
-    #registerRender(target, renderer, scene, camera) {
+    #registerRender(renderer, scene, camera) {
         EventManager.get('animation').attach(() => renderer.render(scene, camera));
     }
 
