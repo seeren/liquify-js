@@ -52,7 +52,7 @@ export class WarpFilter extends Filter {
     }
 
     get amplitude() {
-        return this.#amplitude * 10;
+        return this.#amplitude;
     }
 
     /**

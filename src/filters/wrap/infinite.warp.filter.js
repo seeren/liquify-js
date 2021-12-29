@@ -18,7 +18,7 @@ export class InfinitetWarpFilter extends WarpFilter {
         for (let index = 0; index < positionLength; index += 3) {
             const z = index + 2;
             position[z] = (this.verticeList[z]
-                        + (this.amplitude * window.Math.cos(
+                        + ((this.amplitude) * window.Math.cos(
                             this.increment + index * this.radian,
                         )));
         }
