@@ -40,8 +40,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/demo.html',
-            filename: 'demo.html',
+            template: './src/index.html',
         }),
     ],
     infrastructureLogging: {
