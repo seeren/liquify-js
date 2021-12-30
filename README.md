@@ -26,7 +26,7 @@
 
 ## Demo
 
-Try Liquifys filter by visiting the GitHub Pages:  <https://seeren.github.io/liquify-js/demo.html>.
+Try Liquifys filter by visiting the [GitHub Pages](https://seeren.github.io/liquify-js/dist/).
 
 * * *
 
