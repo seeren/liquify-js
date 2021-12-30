@@ -1,0 +1,88 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/><meta name="description" content="Liquify filter for HTML elements"/><meta name="keywords" content="liquify, web-gl, filter"/><title>Liquify-js</title><base href="./"/><link rel="icon" href="assets/favicon.ico" type="image/x-icon"><style>html,
+        body {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dg.ac {
+            z-index: 9;
+        }
+
+        [data-liquify] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url(assets/demo.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #fafafa;
+            position: absolute;
+            font-weight: lighter;
+            bottom: 45%;
+            font-size: 3em;
+            width: 100%;
+            padding: 0em;
+            margin: 0;
+            box-sizing: border-box;
+            text-align: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }</style><script defer="defer" src="liquify.js"></script></head><body><div data-liquify="infinite" data-duration="5" data-frequency="0.25" data-degree="19" data-amplitude="0.5" data-distance="75"><h1>Liquify HTML Content</h1></div><script>window.addEventListener('load', () => {
+            let frequencyController;
+            let degreeController;
+            let amplitudeController;
+            let durationController;
+            let distanceController;
+            const gui = new dat.GUI();
+            const liquify = window.document.querySelector('[data-liquify]');
+            const typeController = gui.add({ Type: liquify.getAttribute('data-liquify') }, 'Type', {
+                Infinite: 'infinite',
+                Touch: 'click',
+                Move: 'move',
+            }).onChange((data) => {
+                window.Liquify.upgrade(liquify.setAttribute('data-liquify', data));
+                if ('infinite' === data) {
+                    frequencyController.setValue(.25);
+                    degreeController.setValue(19);
+                    amplitudeController.setValue(.5);
+                } else if ('click' === data) {
+                    frequencyController.setValue(.25);
+                    degreeController.setValue(19);
+                    amplitudeController.setValue(1);
+                    durationController.setValue(2);
+                    distanceController.setValue(75);
+                } else if ('move' === data) {
+                    frequencyController.setValue(.3);
+                    degreeController.setValue(19);
+                    amplitudeController.setValue(.9);
+                    durationController.setValue(.5);
+                    distanceController.setValue(1);
+                }
+            });
+            .5, 300, 1.5, .5, 10
+            const commonFolder = gui.addFolder('Common settings');
+            const gestureFolder = gui.addFolder('Gesture settings');
+            frequencyController = commonFolder
+                .add({ Frequency: 0.25 }, 'Frequency', 0, 1)
+                .onChange((data) => liquify.setAttribute('data-frequency', liquify.Liquify.frequency = data));
+            degreeController = commonFolder
+                .add({ Degree: 19 }, 'Degree', 0, 360)
+                .onChange((data) => liquify.setAttribute('data-degree', liquify.Liquify.degree = data));
+            amplitudeController = commonFolder
+                .add({ Amplitude: 0.25 }, 'Amplitude', 0, 2)
+                .onChange((data) => liquify.setAttribute('data-amplitude', liquify.Liquify.amplitude = data));
+            durationController = gestureFolder
+                .add({ Duration: 5 }, 'Duration', 0, 10)
+                .onChange((data) => liquify.setAttribute('data-duration', liquify.Liquify.duration = data));
+            distanceController = gestureFolder
+                .add({ Distance: 75 }, 'Distance', 0, 100)
+                .onChange((data) => liquify.setAttribute('data-distance', liquify.Liquify.distance = data));
+        });</script><script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.2/dat.gui.js"></script></body></html>
