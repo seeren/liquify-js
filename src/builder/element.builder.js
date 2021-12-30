@@ -22,8 +22,8 @@ export class ElementBuilder {
             target.Liquify = new InfinitetWarpFilter();
         }
         target.Liquify.frequency = window.parseFloat(target.getAttribute('data-frequency') || 0.25);
-        target.Liquify.degree = window.parseFloat(target.getAttribute('data-degree') || 130);
-        target.Liquify.amplitude = window.parseFloat(target.getAttribute('data-amplitude') || 0.25);
+        target.Liquify.degree = window.parseFloat(target.getAttribute('data-degree') || 19);
+        target.Liquify.amplitude = window.parseFloat(target.getAttribute('data-amplitude') || 0.5);
     }
 
     /**
